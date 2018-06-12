@@ -46,6 +46,8 @@ public:
 
         void Print() const{
             std::cout << data << std::endl;
+            std::cout << node_height << std::endl;
+            std::cout << "" << std::endl;
         }
 
         T* getNodeData(){
@@ -249,8 +251,14 @@ public:
                     daddy->right_son = NULL;
                     //node->father->right_son = NULL;
                 }
-                updateHeight(node->father);
-                balance(node->father);
+                Node *Iterator = node;
+                while (Iterator->father != NULL){
+                    updateHeight(Iterator);
+                    balance(Iterator);
+                    Iterator=Iterator->father;
+                }
+                updateHeight(this->root);
+                balance(this->root);
             } else { // node is the root
                 this->root = NULL;
                 this->size = 0;
@@ -314,6 +322,9 @@ public:
                 balance(this->getRoot());
             }
             delete(node);
+            if(!isRoot){
+                updateHeight(temp->father);
+            }
             return;
         }
     }
