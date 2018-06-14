@@ -20,6 +20,8 @@ class MinHeap {
         }
     }
 
+
+
     void reSize (int new_length){
         T *temp = new T[new_length + 1];
         moveIntoArray(temp, this->items, this->array_length);
@@ -55,7 +57,7 @@ class MinHeap {
         while (item_index <= occupied/2){
             if(right_son <= occupied){
                 if(items[item_index] < items[left_son] &&
-                        items[item_index] < items[right_son]){ //no need to sift
+                   items[item_index] < items[right_son]){ //no need to sift
                     break;
                 }
                 if(items[left_son] < items[right_son]){
@@ -88,18 +90,25 @@ public:
 
     //fony copy c'tor
     MinHeap(const T* items, int length):
-            items(NULL), occupied(length), array_length(2*length){
+            occupied(length), array_length(2*length){
         if(length <= 0){
             throw HeapInvalidInput();
         }
         this->items = new T[1 + (length * 2)];
-        for (int i = 0; i < length; ++i) {
+        for (int i = 0; i < length; i++) {
             this->items[i+1] = items[i];
         }
         for (int j = length/2; j >=1 ; j--) {
             siftDown(j);
         }
     }
+
+    MinHeap():
+        items(NULL),
+        occupied(0),
+        array_length(0){}
+
+
 
     //d'tor
     ~MinHeap(){
