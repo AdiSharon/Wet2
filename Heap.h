@@ -90,12 +90,12 @@ public:
 
     //fony copy c'tor
     MinHeap(const T* items, int length):
-            occupied(length), array_length(2*length){
+            items(NULL), occupied(length), array_length(2*length){
         if(length <= 0){
             throw HeapInvalidInput();
         }
         this->items = new T[1 + (length * 2)];
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < length; ++i) {
             this->items[i+1] = items[i];
         }
         for (int j = length/2; j >=1 ; j--) {
